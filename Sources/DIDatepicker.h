@@ -10,6 +10,8 @@ extern const CGFloat kDIDatepickerHeight;
 
 @interface DIDatepicker : UIControl <UICollectionViewDataSource, UICollectionViewDelegate>
 
+@property (strong, nonatomic) UICollectionView *datesCollectionView;
+
 // data
 @property (strong, nonatomic) NSArray *dates;
 @property (strong, nonatomic, readonly) NSDate *selectedDate;

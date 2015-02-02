@@ -14,7 +14,6 @@ NSString * const kDIDatepickerCellIndentifier = @"kDIDatepickerCellIndentifier";
     NSIndexPath *selectedIndexPath;
 }
 
-@property (strong, nonatomic) UICollectionView *datesCollectionView;
 @property (strong, nonatomic, readwrite) NSDate *selectedDate;
 
 @end
@@ -61,7 +60,13 @@ NSString * const kDIDatepickerCellIndentifier = @"kDIDatepickerCellIndentifier";
     
     NSIndexPath *selectedCellIndexPath = [NSIndexPath indexPathForItem:[self.dates indexOfObject:selectedDate] inSection:0];
     [self.datesCollectionView deselectItemAtIndexPath:selectedIndexPath animated:YES];
-    [self.datesCollectionView selectItemAtIndexPath:selectedCellIndexPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+    
+    [self.datesCollectionView selectItemAtIndexPath:selectedCellIndexPath animated:YES scrollPosition:UICollectionViewScrollPositionLeft];
+    
+    CGPoint point = self.datesCollectionView.contentOffset;
+    point.x -= 20.0f;
+    self.datesCollectionView.contentOffset = point;
+    
     selectedIndexPath = selectedCellIndexPath;
     
     [self sendActionsForControlEvents:UIControlEventValueChanged];
@@ -229,7 +234,12 @@ NSString * const kDIDatepickerCellIndentifier = @"kDIDatepickerCellIndentifier";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.datesCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    [self.datesCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionLeft animated:YES];
+    
+    CGPoint point = collectionView.contentOffset;
+    point.x -= 20.0f;
+    collectionView.contentOffset = point;
+    
     _selectedDate = [self.dates objectAtIndex:indexPath.item];
     
     [collectionView deselectItemAtIndexPath:selectedIndexPath animated:YES];
