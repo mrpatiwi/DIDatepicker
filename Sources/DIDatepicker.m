@@ -6,7 +6,7 @@
 #import "DIDatepicker.h"
 #import "DIDatepickerDateView.h"
 
-const CGFloat kDIDatepickerHeight = 60.;
+const CGFloat kDIDatepickerHeight = 50.;
 const CGFloat kDIDatepickerSpaceBetweenItems = 15.;
 NSString * const kDIDatepickerCellIndentifier = @"kDIDatepickerCellIndentifier";
 
