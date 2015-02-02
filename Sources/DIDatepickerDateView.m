@@ -59,18 +59,18 @@ const CGFloat kDIDatepickerSelectionLineWidth = 51.;
                                 } range:NSMakeRange(0, dayFormattedString.length)];
     
     [dateString addAttributes:@{
-                                NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:8],
+                                NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:7.5],
                                 NSForegroundColorAttributeName: [UIColor blackColor]
                                 } range:NSMakeRange(dayFormattedString.length + 1, dayInWeekFormattedString.length)];
     
     [dateString addAttributes:@{
-                                NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:8],
+                                NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:7.5],
                                 NSForegroundColorAttributeName: [UIColor colorWithRed:153./255. green:153./255. blue:153./255. alpha:1.]
                                 } range:NSMakeRange(dateString.string.length - monthFormattedString.length, monthFormattedString.length)];
     
     if ([self isWeekday:date]) {
         [dateString addAttribute:NSFontAttributeName
-                           value:[UIFont fontWithName:@"HelveticaNeue-Medium" size:8]
+                           value:[UIFont fontWithName:@"HelveticaNeue-Medium" size:7.5]
                            range:NSMakeRange(dayFormattedString.length + 1, dayInWeekFormattedString.length)];
     }
     
