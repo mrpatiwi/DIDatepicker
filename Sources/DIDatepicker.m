@@ -14,6 +14,7 @@ NSString * const kDIDatepickerCellIndentifier = @"kDIDatepickerCellIndentifier";
     NSIndexPath *selectedIndexPath;
 }
 
+@property (strong, nonatomic) UICollectionView *datesCollectionView;
 @property (strong, nonatomic, readwrite) NSDate *selectedDate;
 
 @end
@@ -29,6 +30,8 @@ NSString * const kDIDatepickerCellIndentifier = @"kDIDatepickerCellIndentifier";
 - (id)initWithFrame:(CGRect)frame
 {
     if(self = [super initWithFrame:frame]){
+        self.scrollPosition = UICollectionViewScrollPositionLeft;
+        self.offset = 45.0f;
         [self setupViews];
     }
     
@@ -60,11 +63,10 @@ NSString * const kDIDatepickerCellIndentifier = @"kDIDatepickerCellIndentifier";
     
     NSIndexPath *selectedCellIndexPath = [NSIndexPath indexPathForItem:[self.dates indexOfObject:selectedDate] inSection:0];
     [self.datesCollectionView deselectItemAtIndexPath:selectedIndexPath animated:YES];
-    
-    [self.datesCollectionView selectItemAtIndexPath:selectedCellIndexPath animated:YES scrollPosition:UICollectionViewScrollPositionLeft];
+    [self.datesCollectionView selectItemAtIndexPath:selectedCellIndexPath animated:YES scrollPosition:_scrollPosition];
     
     CGPoint point = self.datesCollectionView.contentOffset;
-    point.x -= 20.0f;
+    point.x -= _offset;
     self.datesCollectionView.contentOffset = point;
     
     selectedIndexPath = selectedCellIndexPath;
@@ -234,13 +236,12 @@ NSString * const kDIDatepickerCellIndentifier = @"kDIDatepickerCellIndentifier";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.datesCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionLeft animated:YES];
-    
-    CGPoint point = collectionView.contentOffset;
-    point.x -= 20.0f;
-    collectionView.contentOffset = point;
-    
+    [self.datesCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:_scrollPosition animated:YES];
     _selectedDate = [self.dates objectAtIndex:indexPath.item];
+    
+    CGPoint point = self.datesCollectionView.contentOffset;
+    point.x -= _offset;
+    self.datesCollectionView.contentOffset = point;
     
     [collectionView deselectItemAtIndexPath:selectedIndexPath animated:YES];
     selectedIndexPath = indexPath;
